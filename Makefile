@@ -21,9 +21,6 @@ db:
 php:
 	docker-compose exec php bash
 
-app-init:
-	docker-compose run --rm php-cli php init
-
 app-flush-cache:
 	docker-compose run --rm php-cli php yii cache/flush-all
 

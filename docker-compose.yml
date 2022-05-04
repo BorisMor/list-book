@@ -45,11 +45,6 @@ services:
       - ./docker/db/config/data:/home/data
       - ./docker/db/config/init.sql:/docker-entrypoint-initdb.d/init.sql
 
-networks:
-  default:
-    external:
-      name: global-network
-
 volumes:
   nginx:
   db:
