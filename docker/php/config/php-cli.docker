@@ -1,0 +1,23 @@
+FROM php:7.4-cli
+
+# Common
+RUN apt-get update \
+    && apt-get -y --no-install-recommends install zip unzip libzip-dev git curl gnupg libfreetype6-dev libjpeg-dev libpng-dev libxml2-dev libonig-dev sudo wget libwebp-dev
+
+# PHP ext
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install mbstring pdo pdo_mysql zip gd bcmath sockets soap intl exif
+
+RUN apt-get -y install default-mysql-client
+
+# Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --quiet
+
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
+WORKDIR /var/www
+
+RUN mkdir -p /var/dumps
+RUN chmod -R 777 /var/dumps
+RUN chown -R www-data:www-data /var/dumps
+

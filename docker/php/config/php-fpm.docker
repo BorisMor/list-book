@@ -1,0 +1,26 @@
+FROM php:7.4-fpm
+
+ARG error_reporting=-1
+
+# Common
+RUN apt-get update \
+    && apt-get -y --no-install-recommends install wget zip unzip libzip-dev git curl gnupg libfreetype6-dev libjpeg-dev libpng-dev libxml2-dev libonig-dev sudo libwebp-dev
+
+# PHP ext
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install mbstring pdo pdo_mysql zip gd bcmath sockets soap intl exif
+
+# xdebug
+RUN apt-get update && pecl install xdebug-2.9.6 && docker-php-ext-enable xdebug
+
+COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+RUN echo "${error_reporting}";
+RUN echo "error_reporting=${error_reporting}" >> /usr/local/etc/php/conf.d/xdebug.ini
+
+# Permissions
+RUN usermod -u 1000 www-data \
+    && groupmod -g 1000 www-data \
+    && chown www-data:www-data -R /var/www
+
+WORKDIR /var/www
+USER www-data

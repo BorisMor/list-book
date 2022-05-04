@@ -1,0 +1,55 @@
+version: "3"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/config/Dockerfile
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/config/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/config/conf.d:/etc/nginx/conf.d
+      - nginx:/var/log/nginx
+    restart: always
+  php:
+    build:
+      context: ./docker/php/config/
+      dockerfile: php-fpm.docker
+    volumes:
+      - .:/var/www
+      - ./docker/php/config/php-custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
+      - ./docker/php/data:/home/root
+    restart: always
+    depends_on:
+      - db
+  php-cli:
+    build:
+      context: ./docker/php/config/
+      dockerfile: php-cli.docker
+    volumes:
+      - .:/var/www
+      - ./docker/php/config/php-custom.ini:/usr/local/etc/php/conf.d/php-custom.ini # прокидываем настройки php в cli
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 33061:3306
+    env_file:
+      - ./docker/db/config/.env
+    volumes:
+      - db:/var/lib/mysql
+      - ./docker/db/config/my.cnf:/etc/my.cnf
+      - ./docker/db/config/data:/home/data
+      - ./docker/db/config/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+networks:
+  default:
+    external:
+      name: global-network
+
+volumes:
+  nginx:
+  db:

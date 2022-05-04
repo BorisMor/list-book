@@ -1,0 +1,10 @@
+CREATE USER 'user'@'%' IDENTIFIED BY 'password';
+
+DROP DATABASE IF EXISTS `book_list`;
+CREATE DATABASE IF NOT EXISTS `book_list` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+GRANT ALL PRIVILEGES ON `book_list`.* TO 'user'@'%';
+
+
+
+
+
