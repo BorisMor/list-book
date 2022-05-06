@@ -26,7 +26,9 @@ use yii\web\View;
         'model'   => $model,
     ]) ?>
 
+    <div class="form-group">
     <?= Html::img($model->coverUrl, ['style' => 'max-width: 200px;max-height: 200px;']) ?>
+    </div>
 
     <?= $form->errorSummary($model); ?>
 

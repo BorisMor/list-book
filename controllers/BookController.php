@@ -12,6 +12,7 @@ use app\services\book\BookServiceInterface;
 use app\services\book\exceptions\CreateBookException;
 use app\services\book\factory\ModifiedBookDtoFactory;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class BookController extends Controller
@@ -24,6 +25,25 @@ class BookController extends Controller
      * @var \app\services\author\AuthorServiceInterface
      */
     private AuthorServiceInterface $authorService;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only'  => ['crate', 'update'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function __construct($id, $module, BookServiceInterface $service, AuthorServiceInterface $authorService, $config = [])
     {

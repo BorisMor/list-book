@@ -6,6 +6,8 @@ namespace app\services\report;
 
 use app\services\report\dtos\SettingsTopAuthorDto;
 use app\services\report\repository\ReportRepositoryInterface;
+use yii\data\ArrayDataProvider;
+use yii\data\DataProviderInterface;
 
 class ReportService implements ReportServiceInterface
 {
@@ -22,8 +24,13 @@ class ReportService implements ReportServiceInterface
     /**
      * @inheritDoc
      */
-    public function topAuthor(SettingsTopAuthorDto $settings): array
+    public function topAuthor(SettingsTopAuthorDto $settings): DataProviderInterface
     {
-        return $this->repository->topAuthor($settings);
+        return new ArrayDataProvider([
+            'allModels'  => $this->repository->topAuthor($settings),
+            'pagination' => [
+                'pageSize' => $settings->getCount(),
+            ],
+        ]);
     }
 }

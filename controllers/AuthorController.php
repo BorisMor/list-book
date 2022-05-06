@@ -34,17 +34,12 @@ class AuthorController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'only'  => ['crate', 'view'],
                 'rules' => [
                     [
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs'  => [
-                'class'   => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];

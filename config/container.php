@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use app\services\author;
 use app\services\book;
+use app\services\report;
 use app\services\subscription;
 
 /**
@@ -18,4 +19,6 @@ return [
     book\repository\BookCoverRepositoryInterface::class            => book\repository\BookCoverRepository::class,
     subscription\SubscriptionServiceInterface::class               => subscription\SubscriptionService::class,
     subscription\repository\SubscriptionRepositoryInterface::class => subscription\repository\SubscriptionRepository::class,
+    report\ReportServiceInterface::class                           => report\ReportService::class,
+    report\repository\ReportRepositoryInterface::class             => report\repository\ReportRepository::class,
 ];

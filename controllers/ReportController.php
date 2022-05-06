@@ -6,11 +6,12 @@ namespace app\controllers;
 
 use app\models\reports\ReportTopAuthorForm;
 use app\services\report\ReportServiceInterface;
+use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
-class ReposrtController extends Controller
+class ReportController extends Controller
 {
     /**
      * @var \app\services\report\ReportServiceInterface
@@ -50,10 +51,15 @@ class ReposrtController extends Controller
     public function actionTopAuthor()
     {
         $model = new ReportTopAuthorForm();
-        // @TODO доделать
+        $dp = null;
 
-        $this->render('topAuthor', [
-            'model' => $model
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $dp = $this->reportService->topAuthor($model->getSettings());
+        }
+
+        return $this->render('topAuthor', [
+            'model' => $model,
+            'dp'    => $dp
         ]);
     }
 }

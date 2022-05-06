@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace app\models\reports;
 
+use app\services\report\dtos\SettingsTopAuthorDto;
+use app\services\report\factory\SettingsTopAuthorDtoFactory;
 use Yii;
 use yii\base\Model;
 
@@ -16,7 +18,7 @@ class ReportTopAuthorForm extends Model
     public const ATTR_COUNT = 'count';
 
     public $year;
-    public $count;
+    public $count = 10;
 
     /**
      * @inheritDoc
@@ -39,5 +41,18 @@ class ReportTopAuthorForm extends Model
             self::ATTR_YEAR  => Yii::t('app', 'Год'),
             self::ATTR_COUNT => Yii::t('app', 'Количество'),
         ];
+    }
+
+    /**
+     * Настройки отчета
+     *
+     * @return SettingsTopAuthorDto
+     */
+    public function getSettings(): SettingsTopAuthorDto
+    {
+        return SettingsTopAuthorDtoFactory::create(
+            (int)$this->count,
+            (int)$this->year
+        );
     }
 }

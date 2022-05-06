@@ -7,6 +7,7 @@ namespace app\services\report;
 
 use app\services\report\dtos\SettingsTopAuthorDto;
 use app\services\report\dtos\ItemTopAuthorDto;
+use yii\data\DataProviderInterface;
 
 /**
  * Отвечает за отчеты
@@ -20,5 +21,5 @@ interface ReportServiceInterface
      *
      * @return ItemTopAuthorDto[]
      */
-    public function topAuthor(SettingsTopAuthorDto $settings): array;
+    public function topAuthor(SettingsTopAuthorDto $settings): DataProviderInterface;
 }

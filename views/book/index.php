@@ -25,6 +25,7 @@ $isLogin = !Yii::$app->user->isGuest;
             <?= Html::a(Yii::t('app', 'Добавить книгу'), Url::toRoute(['book/create']), ['class' => 'btn btn-primary']); ?>
         </div>
     </div>
+    <br>
 <?php endif; ?>
 
 <?= GridView::widget([
@@ -48,6 +49,7 @@ $isLogin = !Yii::$app->user->isGuest;
         ],
         [
             'attribute' => 'author',
+            'header' => Yii::t('app', 'Автор'),
             'value'     => fn(BookDto $dto) => $dto->getIsbn(),
         ],
         [

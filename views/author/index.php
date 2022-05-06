@@ -25,6 +25,7 @@ $isLogin = !Yii::$app->user->isGuest;
             <?= Html::a(Yii::t('app', 'Добавить автора'), Url::toRoute(['author/create']), ['class' => 'btn btn-primary']); ?>
         </div>
     </div>
+    <br>
 <?php endif ?>
 
 <?= GridView::widget([
