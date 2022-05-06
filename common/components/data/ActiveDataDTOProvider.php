@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace common\components\data;
+namespace app\common\components\data;
 
 use Yii;
 use yii\base\InvalidConfigException;

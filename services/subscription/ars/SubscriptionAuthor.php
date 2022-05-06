@@ -33,6 +33,7 @@ class SubscriptionAuthor extends ActiveRecord
             [
                 'class'              => TimestampBehavior::class,
                 'createdAtAttribute' => self::ATTR_CREATED_AT,
+                'updatedAtAttribute' => false,
                 'value'              => new Expression('NOW()'),
             ],
         ];

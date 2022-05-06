@@ -31,9 +31,10 @@ class BookAuthor extends ActiveRecord
     {
         return [
             [
-                'class' => TimestampBehavior::class,
+                'class'              => TimestampBehavior::class,
                 'createdAtAttribute' => self::ATTR_CREATED_AT,
-                'value' => new Expression('NOW()'),
+                'updatedAtAttribute' => false,
+                'value'              => new Expression('NOW()'),
             ],
         ];
     }

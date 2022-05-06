@@ -20,6 +20,7 @@ class m220505_040604_book extends Migration
             'publish_year' => $this->integer()->notNull()->comment('Год выпуска'),
             'description'  => $this->text()->comment('Описание'),
             'isbn'         => $this->string(20)->notNull()->unique()->comment('ISBN'),
+            'cover_image'  => $this->string(260)->comment('Изображение обложки'),
             'created_at'   => $this->createdAt(),
             'updated_at'   => $this->updatedAt(),
         ]);

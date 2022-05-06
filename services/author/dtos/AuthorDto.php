@@ -5,16 +5,15 @@ declare(strict_types=1);
 namespace app\services\author\dtos;
 
 /**
- * DTO с описанием автора
+ * DTO с описанием автора для вывода
  */
-class AuthorInfoDto
+class AuthorDto
 {
     private int    $id;
     private string $title;
 
     public function __construct(int $id, string $title)
     {
-
         $this->id = $id;
         $this->title = $title;
     }
